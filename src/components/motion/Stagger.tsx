@@ -9,7 +9,7 @@ export function Stagger({ children, className }: { children: ReactNode; classNam
   return (
     <motion.div
       className={className}
-      initial={reduceMotion ? false : "hidden"}
+      initial={false}
       whileInView={reduceMotion ? undefined : "show"}
       viewport={{ once: true, margin: "-80px" }}
       variants={{
