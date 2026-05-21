@@ -63,8 +63,10 @@ The checklist lead magnet already has a functional first step:
 
 - `src/components/sections/LeadMagnetSection.tsx` submits the form.
 - `src/app/api/checklist-lead/route.ts` validates the lead, sends a best-effort server-side POST to n8n, and returns the checklist download URL.
+- `src/app/api/contact/route.ts` validates contact requests and sends them to n8n.
 - `public/downloads/ai-automation-security-checklist.pdf` is the downloadable PDF.
 - `N8N_CHECKLIST_WEBHOOK_URL` configures the n8n webhook endpoint.
+- `N8N_CONTACT_WEBHOOK_URL` configures the contact form n8n webhook endpoint.
 
 Recommended next steps:
 
@@ -89,6 +91,7 @@ Environment variables:
 
 - `NEXT_PUBLIC_SITE_URL=https://alkyora.com`
 - `N8N_CHECKLIST_WEBHOOK_URL=<your n8n production webhook URL>`
+- `N8N_CONTACT_WEBHOOK_URL=<your n8n production contact webhook URL>`
 
 Pre-deployment checklist:
 
@@ -96,12 +99,15 @@ Pre-deployment checklist:
 2. Run `npm run build`.
 3. Confirm `NEXT_PUBLIC_SITE_URL` is set to `https://alkyora.com` in Vercel.
 4. Confirm `N8N_CHECKLIST_WEBHOOK_URL` uses the production n8n webhook URL.
-5. Confirm `/downloads/ai-automation-security-checklist.pdf` loads from the deployed domain.
-6. Submit the checklist form once in production and confirm the lead arrives in n8n.
-7. Replace placeholder privacy and terms pages before collecting real leads at scale.
+5. Confirm `N8N_CONTACT_WEBHOOK_URL` uses the production n8n contact webhook URL.
+6. Confirm `/downloads/ai-automation-security-checklist.pdf` loads from the deployed domain.
+7. Submit the checklist form once in production and confirm the lead arrives in n8n.
+8. Submit the contact form once in production and confirm the lead arrives in n8n.
+9. Replace placeholder privacy and terms pages before collecting real leads at scale.
 
 Important notes:
 
 - The checklist webhook is best-effort. If n8n fails, the API logs the error and still returns the PDF URL so the user experience does not break.
+- The contact webhook is strict. If n8n fails, the API logs the error and returns a friendly failure message so the visitor knows the request did not go through.
 - The n8n webhook URL must stay server-side. Do not prefix it with `NEXT_PUBLIC_`.
 - SEO metadata, canonical URLs, Open Graph URLs, and JSON-LD use `NEXT_PUBLIC_SITE_URL`, defaulting to `https://alkyora.com`.

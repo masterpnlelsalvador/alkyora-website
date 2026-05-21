@@ -18,9 +18,10 @@ Copy `.env.example` into your local environment file and set the production valu
 ```env
 NEXT_PUBLIC_SITE_URL=https://alkyora.com
 N8N_CHECKLIST_WEBHOOK_URL=
+N8N_CONTACT_WEBHOOK_URL=
 ```
 
-`N8N_CHECKLIST_WEBHOOK_URL` is server-only and should be added in Vercel Project Settings, not exposed in client code.
+The n8n webhook URLs are server-only and should be added in Vercel Project Settings, not exposed in client code.
 
 ## Deployment
 
