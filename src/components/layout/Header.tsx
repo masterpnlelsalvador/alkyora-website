@@ -15,7 +15,13 @@ export function Header() {
           <span className="text-sm font-semibold tracking-[0.28em] text-white">ALKYORA</span>
         </Link>
         <Navigation />
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-4 md:flex">
+          <a
+            href="https://es.alkyora.com"
+            className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition hover:text-white"
+          >
+            ES
+          </a>
           <Button href="/contact" className="min-h-10 px-4">
             Book a Review
           </Button>
@@ -33,6 +39,12 @@ export function Header() {
             <Link href="/contact" className="mt-2 block rounded-md bg-white px-3 py-2 text-sm font-semibold text-background">
               Book a Review
             </Link>
+            <a
+              href="https://es.alkyora.com"
+              className="mt-2 block rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 hover:bg-white/8 hover:text-white"
+            >
+              ES
+            </a>
           </div>
         </details>
       </Container>
