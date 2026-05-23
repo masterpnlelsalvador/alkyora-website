@@ -25,6 +25,9 @@ export function Header() {
           <Button href="/contact" className="min-h-10 px-4">
             Book a Review
           </Button>
+          <Button href="/free-mini-review" variant="secondary" className="min-h-10 px-4">
+            Free Mini Review
+          </Button>
         </div>
         <details className="group relative md:hidden">
           <summary className="list-none rounded-lg border border-white/15 px-3 py-2 text-sm text-white marker:hidden">
@@ -38,6 +41,9 @@ export function Header() {
             ))}
             <Link href="/contact" className="mt-2 block rounded-md bg-white px-3 py-2 text-sm font-semibold text-background">
               Book a Review
+            </Link>
+            <Link href="/free-mini-review" className="mt-2 block rounded-md border border-white/15 px-3 py-2 text-sm font-semibold text-white">
+              Get a Free Mini Review
             </Link>
             <a
               href="https://es.alkyora.com"

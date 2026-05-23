@@ -10,6 +10,7 @@ export const footerNavigation = {
   company: [
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
+    { label: "Free Mini Review", href: "/free-mini-review" },
   ],
   services: [
     { label: "AI System Review", href: "/services/ai-system-review" },
@@ -17,6 +18,7 @@ export const footerNavigation = {
     { label: "Automation Guardrails", href: "/services/automation-guardrails" },
   ],
   resources: [
+    { label: "Free Mini AI System Review", href: "/free-mini-review" },
     { label: "AI Automation Security Checklist", href: "/resources/ai-automation-security-checklist" },
     { label: "AI Workflow Risks", href: "/resources" },
     { label: "SmartWeb Security Notes", href: "/resources" },

@@ -64,9 +64,12 @@ The checklist lead magnet already has a functional first step:
 - `src/components/sections/LeadMagnetSection.tsx` submits the form.
 - `src/app/api/checklist-lead/route.ts` validates the lead, sends a best-effort server-side POST to n8n, and returns the checklist download URL.
 - `src/app/api/contact/route.ts` validates contact requests and sends them to n8n.
+- `src/app/free-mini-review/page.tsx` presents the free mini AI system review offer and form.
+- `src/app/api/free-mini-review/route.ts` validates free mini review requests and posts them to n8n when configured.
 - `public/downloads/ai-automation-security-checklist.pdf` is the downloadable PDF.
 - `N8N_CHECKLIST_WEBHOOK_URL` configures the n8n webhook endpoint.
 - `N8N_CONTACT_WEBHOOK_URL` configures the contact form n8n webhook endpoint.
+- `N8N_FREE_REVIEW_WEBHOOK_URL` configures the free mini review n8n webhook endpoint.
 
 Recommended next steps:
 
@@ -92,6 +95,7 @@ Environment variables:
 - `NEXT_PUBLIC_SITE_URL=https://alkyora.com`
 - `N8N_CHECKLIST_WEBHOOK_URL=<your n8n production webhook URL>`
 - `N8N_CONTACT_WEBHOOK_URL=<your n8n production contact webhook URL>`
+- `N8N_FREE_REVIEW_WEBHOOK_URL=<your n8n production free review webhook URL>`
 
 Pre-deployment checklist:
 
@@ -100,14 +104,45 @@ Pre-deployment checklist:
 3. Confirm `NEXT_PUBLIC_SITE_URL` is set to `https://alkyora.com` in Vercel.
 4. Confirm `N8N_CHECKLIST_WEBHOOK_URL` uses the production n8n webhook URL.
 5. Confirm `N8N_CONTACT_WEBHOOK_URL` uses the production n8n contact webhook URL.
-6. Confirm `/downloads/ai-automation-security-checklist.pdf` loads from the deployed domain.
-7. Submit the checklist form once in production and confirm the lead arrives in n8n.
-8. Submit the contact form once in production and confirm the lead arrives in n8n.
-9. Replace placeholder privacy and terms pages before collecting real leads at scale.
+6. Confirm `N8N_FREE_REVIEW_WEBHOOK_URL` uses the production n8n free review webhook URL.
+7. Confirm `/downloads/ai-automation-security-checklist.pdf` loads from the deployed domain.
+8. Submit the checklist form once in production and confirm the lead arrives in n8n.
+9. Submit the contact form once in production and confirm the lead arrives in n8n.
+10. Submit the free mini review form once in production and confirm the lead arrives in n8n.
+11. Replace placeholder privacy and terms pages before collecting real leads at scale.
 
 Important notes:
 
 - The checklist webhook is best-effort. If n8n fails, the API logs the error and still returns the PDF URL so the user experience does not break.
 - The contact webhook is strict. If n8n fails, the API logs the error and returns a friendly failure message so the visitor knows the request did not go through.
+- The free mini review webhook is optional. If it is configured and n8n fails, the API logs the error and returns a friendly failure message. If it is not configured, the request validates and returns success for local setup.
 - The n8n webhook URL must stay server-side. Do not prefix it with `NEXT_PUBLIC_`.
 - SEO metadata, canonical URLs, Open Graph URLs, and JSON-LD use `NEXT_PUBLIC_SITE_URL`, defaulting to `https://alkyora.com`.
+
+## Free Mini Review Route
+
+The free mini review lead-generation offer lives at `/free-mini-review` and submits browser requests to `/api/free-mini-review`.
+
+Required API fields:
+
+- `name`
+- `email`
+- `linkToReview`
+- `whatDoYouWantReviewed`
+
+The API validates the email format and sends this server-side payload to n8n when `N8N_FREE_REVIEW_WEBHOOK_URL` is set:
+
+- `name`
+- `email`
+- `companyOrProjectName`
+- `whatDidYouBuild`
+- `linkToReview`
+- `whatDoYouWantReviewed`
+- `isItLive`
+- `message`
+- `source: "Alkyora Free Mini Review"`
+- `submittedAt`
+
+To connect the webhook in Vercel, add `N8N_FREE_REVIEW_WEBHOOK_URL` in Project Settings > Environment Variables, paste the production n8n POST webhook URL, save it for the target environments, and redeploy.
+
+To test, run `npm run dev`, submit `/free-mini-review` with valid required fields, and verify the success state. With the Vercel variable configured, submit once in production and confirm the n8n execution received the payload. To verify failure handling, temporarily point the variable at a non-2xx endpoint in a preview environment and confirm the form shows the friendly error.
