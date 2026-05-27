@@ -28,6 +28,13 @@ const audience = [
   "Small businesses using forms, webhooks, CRMs, AI tools, or automations",
 ];
 
+const safetyNotes = [
+  "No credentials required for the free mini review",
+  "Public links and high-level context only",
+  "Sensitive data should never be submitted",
+  "Deeper reviews can be scoped separately with proper safeguards",
+];
+
 export const metadata: Metadata = createMetadata({
   title: "Free Mini AI System Review | Alkyora",
   description:
@@ -80,6 +87,25 @@ export default function FreeMiniReviewPage() {
             <div className="grid gap-3 sm:grid-cols-2">
               {audience.map((item) => (
                 <div key={item} className="rounded-lg border border-white/10 bg-background/60 p-5">
+                  <p className="text-sm leading-6 text-slate-200">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-20">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            <SectionHeading
+              eyebrow="Submission safety"
+              title="How we keep this safe"
+              copy="The free mini review is intentionally scoped for public information and high-level context, so you can request a useful second look without exposing sensitive systems."
+            />
+            <div className="grid gap-3 sm:grid-cols-2">
+              {safetyNotes.map((item) => (
+                <div key={item} className="rounded-lg border border-cyan-300/15 bg-cyan-300/8 p-5">
                   <p className="text-sm leading-6 text-slate-200">{item}</p>
                 </div>
               ))}

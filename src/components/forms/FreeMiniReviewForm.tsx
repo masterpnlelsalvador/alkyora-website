@@ -62,8 +62,23 @@ export function FreeMiniReviewForm() {
           required={false}
         />
         <SelectField label="What did you build?" name="whatDidYouBuild" options={buildOptions} />
-        <FormField label="Link to review" name="linkToReview" type="url" placeholder="https://..." />
+        <FormField
+          label="Link to review"
+          name="linkToReview"
+          type="url"
+          placeholder="https://..."
+          helperText="Public link only. Do not include private dashboards or restricted URLs."
+        />
         <SelectField label="Is it live?" name="isItLive" options={liveOptions} />
+      </div>
+
+      <div className="mt-5 rounded-lg border border-cyan-300/20 bg-cyan-300/8 p-4">
+        <p className="text-sm font-medium leading-6 text-cyan-100">
+          No credentials required. This free mini review is based on public-facing pages, visible flows, and high-level context only.
+        </p>
+        <p className="mt-3 text-sm leading-6 text-slate-300">
+          For your safety, do not submit passwords, API keys, private webhook URLs, customer data, login credentials, or sensitive internal information.
+        </p>
       </div>
 
       <label className="mt-4 block">
@@ -75,6 +90,9 @@ export function FreeMiniReviewForm() {
           className="mt-2 w-full rounded-lg border border-white/12 bg-background px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-accent"
           placeholder="Share the main flow, risk, or launch question you want a second look on."
         />
+        <span className="mt-2 block text-xs leading-5 text-muted">
+          Describe the system at a high level. Do not include confidential customer data, API keys, tokens, or private webhook URLs.
+        </span>
       </label>
 
       <label className="mt-4 block">
@@ -115,6 +133,7 @@ function FormField({
   type = "text",
   autoComplete,
   placeholder,
+  helperText,
   required = true,
 }: {
   label: string;
@@ -122,6 +141,7 @@ function FormField({
   type?: string;
   autoComplete?: string;
   placeholder?: string;
+  helperText?: string;
   required?: boolean;
 }) {
   return (
@@ -135,6 +155,7 @@ function FormField({
         placeholder={placeholder}
         className="mt-2 w-full rounded-lg border border-white/12 bg-background px-4 py-3 text-white outline-none placeholder:text-slate-600 focus:border-accent"
       />
+      {helperText ? <span className="mt-2 block text-xs leading-5 text-muted">{helperText}</span> : null}
     </label>
   );
 }
